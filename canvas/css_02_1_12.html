@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+        body { width: 400px;}
+        ul li {list-style:none;}
+        a::after {content: ' - ' attr(href);}
+        a { text-decoration: none; }
+        a:visited { color: red; }
+    </style>
+    </head>
+    <body> 
+        <ul>
+            <li><a href="http://daum.net" target="_blank">Daum</a></li>
+            <li><a href="http://www.yahoo.com" target="_blank">야후</a></li>
+            <li><a href="http://www.google.com" target="_blank">구글</a></li>
+        </ul>
+    </body>
+</html>

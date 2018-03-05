@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 03</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+#audio_player {
+    width: 400px;
+    height: 100px;
+    background: #000;
+}            
+#audio_box > audio {
+    width: 400px;
+    background: #002d3c;
+    float: left;
+} 
+#myCanvas {
+    float: left;
+}
+        </style>
+    </head>
+    <body>
+        <div id="audio_player">
+            <canvas id="myCanvas" width="400" height="100">CANVAS를 지원하지 않습니다.</canvas>
+            <div id="audio_box"></div>  
+        </div>
+    <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+
+var audio = new Audio();
+audio.src = "sounds/nutcracker.mp3";
+audio.controls = true;
+audio.loop = false;
+audio.autoplay = false;
+$("#audio_box").append(audio);
+
+var ctxH = canvas.height;
+var ctxW = canvas.width;
+var context;
+var analyser;
+var sourceNode;
+var bufferLength;
+var arrData;
+
+// 음원을 분석하여 노드를 생성한다.
+function setupAudioNodes() {
+    context = new AudioContext();
+    analyser = context.createAnalyser();
+    sourceNode = context.createMediaElementSource(audio);
+    sourceNode.connect(analyser);
+    analyser.connect(context.destination);
+    bufferLength = analyser.frequencyBinCount;
+    arrData = new Uint8Array(bufferLength);
+    updateVisualization();
+}
+
+// 현재의 주파수 데이터를 Uint8Array로 복사해 전달한다.
+function updateVisualization () {
+    requestAnimationFrame(updateVisualization);
+    analyser.getByteFrequencyData(arrData);  
+    drawBars(arrData);
+}
+
+// 음악 샘플링 바를 그린다.
+function drawBars (arrData) {
+    ctx.clearRect(0, 0, ctxW, ctxH);
+    
+    // 그래프를 그라데이션으로 그린다.
+    var grad = ctx.createLinearGradient(0,0,0,100);
+    grad.addColorStop(0,'#ffffff'); //white
+    grad.addColorStop(0.25,'#ffff00'); //yellow
+    grad.addColorStop(0.75,'#ff0000'); //red
+    grad.addColorStop(1,'#000000'); //black
+    
+    // 그래프바를 그린다.
+    var barWidth = (ctxW / bufferLength) * 2.5;
+    var bars = arrData.length;
+    var x = 0;
+    var space = 2;
+    for (var i = 0; i < bars; i++) {
+        barHeight  = arrData[i] / 2;
+	ctx.fillStyle = grad;
+        ctx.fillRect(x, ctxH - barHeight/2, barWidth, barHeight);
+        x += barWidth + space;
+        
+        // sampleRate 표시
+        if (i % 15 === 0) {
+            ctx.font = '10px sans-serif';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(Math.floor(context.sampleRate / analyser.fftSize * i), i * space + 5, 15);
+        }
+    }
+}
+
+setupAudioNodes();
+        </script>        
+    </body>
+</html>

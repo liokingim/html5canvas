@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>jquery 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<style>
+    body { width: 400px;}
+    #click { border: 1px solid #000; display: block;}
+    .colorChange {background-color: gray;}
+</style>
+    </head>
+    <body>
+        <p id="click">클릭하세요.</p>
+        <div class="colorChange">색이 변합니다.</div>        
+<script> 
+    $("#click").click(function () {
+        $(".colorChange").css("background-color", "red");
+    });
+</script>
+    </body>
+</html>

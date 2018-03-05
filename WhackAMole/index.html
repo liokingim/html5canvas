@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Whack A Mole Game</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+            body { 
+                margin:10px; 
+                background:#D0D0D0; 
+            }
+            #myCanvas { 
+                display: none;
+                background:#FFFFFF; 
+                border:#909090 1px solid; 
+            }
+            #SplashScreen {
+            	width: 500px;
+                height: 400px;
+                background-image: url("images/background.png");
+                background-repeat: none;
+                border:#909090 1px solid; 
+            }
+            #mainImage {
+            	position: absolute;
+            	top: 145px;
+                left: 250px;
+                width: 62px;
+                height: 61px;
+            	background-image: url("images/mole.png");
+            	background-repeat: none;
+            }            
+            #btnStart {
+            	position: absolute;
+            	top: 200px;
+                left: 230px;
+                width: 100px;
+                height: 41px;
+                background-image: url("images/playbutton.png");
+                background-repeat: none;
+            }
+            #btnStart:hover {
+            	opacity: 0.8;
+            	cursor: pointer;
+            }
+            .myAudio {
+                display: none;
+            }
+            .sound {
+            	display: none;
+                position: absolute;
+                top: 20px;
+                left: 30px;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 10;
+              }
+              .sound-on {
+                background-image: url('images/soundOn.png');
+                background-repeat: no-repeat;
+              }
+              .sound-off {
+                background-image: url('images/soundOff.png');
+                background-repeat: no-repeat;
+              }
+        </style>
+    </head>
+    <body>
+    	<div id="SplashScreen">
+            <span id="mainImage"> </span>
+            <span id="btnStart"> </span>
+        </div>        
+        <div class="sound sound-on"> </div>
+        <audio class="myAudio" loop>
+            <source src="sounds/bg.mp3" type="audio/mpeg">
+        </audio>          
+        <canvas id="myCanvas" width="500" height="400">HTML5 CANVAS를 지원하지 않습니다.</canvas>
+        <script src="js/main.js"></script>
+    </body>
+</html>

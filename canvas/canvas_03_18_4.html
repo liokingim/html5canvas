@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var ctxW = canvas.width; 
+var ctxH = canvas.height;
+
+var bgImage = new Image();
+bgImage.src = "images/winternight.jpg";
+
+var snowflakes = [];
+var totalCount = 10;
+
+// 눈송이를 추가한다.
+function addSnowflake () {
+    if (snowflakes.length >= totalCount) {
+        return;
+    }
+    
+    // x 좌표를 램덤으로 변경
+    var x = Math.floor(Math.random() * ctxW) + 1;
+    var y = 0;
+    // 눈송이의 크기를 램덤으로 변경
+    var size = Math.floor(Math.random() * 3) + 1; 
+    
+    // 눈송이를 생성해서 배열에 넣는다.
+    snowflakes.push({"x":x,"y":y,"size":size});
+}
+
+// 눈 송이를 그린다.
+function snow () {
+    addSnowflake();
+
+    ctx.fillStyle = "rgba(255,255,255,0.75)";    
+    for (var i in snowflakes) {  
+        ctx.beginPath();
+        ctx.arc(snowflakes[i].x, snowflakes[i].y++, snowflakes[i].size, 0, Math.PI*2);
+        ctx.fill();
+        
+        // 화면을 넘어가면 삭제한다.
+        if (snowflakes[i].y > ctxH) {
+            snowflakes.splice(i, 1);
+        }
+    }
+}
+
+// 매시간 화면을 갱신한다.
+function animate() {
+    ctx.clearRect(0, 0, ctxW, ctxH);
+    ctx.drawImage(bgImage, 0, 0);
+    snow();
+}
+
+var objAnimate = setInterval(animate, 30);
+        </script>        
+    </body>
+</html>

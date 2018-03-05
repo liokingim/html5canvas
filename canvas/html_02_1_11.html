@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>html 요소</title>
+    </head>
+    <body>  
+        <div style="width:400px">
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>중요 정보 입력</legend>
+                    아이디: <input type="text" name="uid" autofocus required/>
+                    <br />
+                    비밀번호: <input type="password" name="upw" placeholder="***" required/>
+                </fieldset>
+                <fieldset>
+                    <legend>개인 정보 입력</legend>
+                    이메일: <input type="email" name="uemail"/><br />
+                    사진: <input type="file" name="upic"/><br />
+                    출신: <input type="radio" name="planet" value="earth">지구인 
+                            <input type="radio" name="planet" value="alien">외계인 
+                    <br />
+                    취미: <input type="checkbox" name="hobby" value="movie" checked />영화 
+                            <input type="checkbox" name="hobby" value="reading" />독서
+                            <input type="checkbox" name="hobby" value="walking" />산보
+                    <br />
+                    음식: <select name="food" multiple>
+                            <option value="kimchi">김치</option>
+                            <option value="bulgogi">불고기</option>
+                            <option value="ramen">라면</option>
+                        </select>
+                    <br />
+                   소개: <textarea rows="3" cols="20">간단하게..</textarea>
+                </fieldset>
+                <fieldset>
+                    <legend>기타 정보 입력</legend>
+                    체류기간: <input type="range" name="나이" min="0" max="100" step="1" value="30">
+                    <br />
+                    암호키: <keygen name="key" keytype="rsa"/>
+                </fieldset>
+                <input type="submit" value="보내기"/> <input type="reset"/>
+                <button type="button"><img src="images/button_search.png" alt="search"></button>
+                <input type="hidden" name="no" value="1"/>                
+            </form>            
+        </div>
+    </body>
+</html>

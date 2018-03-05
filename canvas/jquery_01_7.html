@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>jquery 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="js/json2.js"></script>
+<style>
+    body { width: 400px;}
+</style>
+    </head>
+    <body>
+        <div id="list"></div>        
+<script> 
+    var jsonDatas = [{ "no" : "1", "name" : "사과", "price" : "1000"},
+                    { "no" : "2", "name" : "자두", "price" : "2000"},
+                    { "no" : "3", "name" : "포도", "price" : "3000"}];
+    var str = JSON.stringify(jsonDatas); // 변수의 json 객체를 문자열로 변형
+    var obj = JSON.parse(str); // json문자열을 객체로 변형
+    for(var i in obj) {
+        var no = obj[i].no;
+        var name = obj[i].name;
+        var price = obj[i].price;
+        $("#list").append("<div>"+no+" : "+name+" : "+price+"</div>");
+    }
+</script>
+    </body>
+</html>

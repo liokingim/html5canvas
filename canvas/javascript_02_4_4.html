@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Javascript 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<style>
+#video_player { 
+    width:500px; 
+    background:#000000; 
+    margin:0px auto;
+}
+#video_controls_bar { height:30px; }
+.btnPlay, .btnPause, .btnMute, .btnUnMute, .btnFullscreen {
+    width:27px;
+    height:20px;     
+    border: 0px;
+    margin: 2px 2px 2px 10px;
+    display: block;
+    cursor: pointer;
+}
+.btnPlay, .btnPause, #sliderSeek, .btnMute, .btnUnMute, .textTime, 
+#sliderVolume, .btnFullscreen {
+    float: left;    
+}
+.btnPlay {
+    background: url(images/VideoButtonSet.png) -2px -2px no-repeat;
+}
+.btnPlay:hover {
+    background: url(images/VideoButtonSet.png) -2px -27px no-repeat;
+}
+.btnPause {
+    background: url(images/VideoButtonSet.png) -53px -2px no-repeat;
+}
+.btnPause:hover {
+    background: url(images/VideoButtonSet.png) -53px -27px no-repeat;
+}
+.btnUnMute {
+    background: url(images/VideoButtonSet.png) -155px -2px no-repeat;
+}
+.btnUnMute:hover {
+    background: url(images/VideoButtonSet.png) -155px -27px no-repeat;
+}
+.btnMute {
+    background: url(images/VideoButtonSet.png) -205px -2px no-repeat;
+}
+.btnMute:hover {
+    background: url(images/VideoButtonSet.png) -205px -27px no-repeat;
+}
+.btnFullscreen {
+    background: url(images/VideoButtonSet.png) -307px -2px no-repeat;
+}
+.btnFullscreen:hover {
+    background: url(images/VideoButtonSet.png) -307px -27px no-repeat;
+}
+.textTime {
+    margin: 2px 2px 2px 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+#sliderSeek{ width:170px; cursor: pointer;}
+#sliderVolume{ width: 80px;cursor: pointer;}
+input {background-color: transparent;}
+input[type=range] {-webkit-appearance: none !important;}
+input[type=range]::-webkit-slider-runnable-track {
+    height: 6px;
+    margin-top: 6px;
+    background: #3071a9;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 10px;
+    width: 14px;
+    border-radius: 3px;
+    background: #ffffff;
+    margin-top: -2px;
+    border: 1px solid #666666;
+}
+input[type=range]::-moz-range-track {
+    height: 6px;
+    background: #3071a9;
+}
+input[type=range]::-moz-range-thumb {
+    height: 8px;
+    width: 14px;
+    border-radius: 3px;
+    background: #ffffff;
+}
+input[type="range"]::-ms-track {
+    border-radius: 3px;
+    height: 6px;
+    background: #3071a9;
+    color: transparent;
+    border: 0;
+    border-color: transparent;
+}
+input[type="range"]::-ms-fill-lower,
+input[type="range"]::-ms-fill-upper {background: transparent;}
+input[type=range]::-ms-thumb {
+    background: #ffffff;
+    height: 10px;
+    width: 14px;
+    border-radius: 3px;
+}
+</style>
+    </head>
+    <body>
+    <div id="video_player">
+        <video id="myVideo" width="500" height="280">
+            <source src="videos/Cars.mp4">
+        </video>
+        <div id="video_controls_bar">
+            <button id="btnPlayPause" class="btnPause"></button>
+            <input id="sliderSeek" type="range" min="0" max="100" value="0" step="1">
+            <span id="textCurrtime" class="textTime">00:00</span> 
+            <span class="textTime">/</span>
+            <span id="textDurtime" class="textTime">00:00</span>
+            <button id="btnUnMute" class="btnUnMute"></button>
+            <input id="sliderVolume" type="range" min="0" max="100" value="100" step="1">
+            <button id="btnFullscreen" class="btnFullscreen"></button>
+        </div>
+    </div>
+<script> 
+var objVideo = $("#myVideo").get(0);
+var sliderSeek = $("#sliderSeek").get(0);
+
+$("#btnPlayPause").click(function () {
+    setPlayPause();
+});
+
+$("#myVideo").bind("timeupdate", updateTime);
+
+$("#sliderSeek").change(function () {
+    setVideoSeek();
+});
+
+// 동영상의 플레이시간을 적용
+function updateTime() {
+    var newtime = objVideo.currentTime * (100 / objVideo.duration);
+    sliderSeek.value = newtime; 
+    var curmins = Math.floor(objVideo.currentTime / 60);
+    var cursecs = Math.floor(objVideo.currentTime - curmins * 60);
+    var durmins = Math.floor(objVideo.duration / 60);
+    var dursecs = Math.floor(objVideo.duration - durmins * 60);
+    if (cursecs < 10) { cursecs = "0"+cursecs; }
+    if (dursecs < 10) { dursecs = "0"+dursecs; }
+    if (curmins < 10) { curmins = "0"+curmins; }
+    if (durmins < 10) { durmins = "0"+durmins; }    
+    $("#textCurrtime").text(curmins+":"+cursecs);
+    $("#textDurtime").text(durmins+":"+dursecs); 
+}
+
+// 동영상의 탐색
+function setVideoSeek(){
+    var seekto = objVideo.duration * (sliderSeek.value / 100);
+    objVideo.currentTime = seekto;
+}
+
+// 동영상의 재생 멈춤
+function setPlayPause() {    
+    if (objVideo.paused) {
+        objVideo.play();
+        $("#btnPlayPause").removeClass("btnPause");
+        $("#btnPlayPause").addClass("btnPlay");
+    } else {
+        objVideo.pause();
+        $("#btnPlayPause").removeClass("btnPlay");
+        $("#btnPlayPause").addClass("btnPause");
+    }
+}
+</script>        
+    </body>
+</html>

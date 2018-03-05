@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var ctxW = ctx.canvas.width; 
+var ctxH = ctx.canvas.height;
+
+var bgImage = new Image();
+bgImage.src = "images/winternight.jpg";
+
+var y = 0;
+
+// 눈 송이를 그린다.
+function snow () {
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    ctx.beginPath();
+    ctx.arc(100, y++, 5, 0, Math.PI*2);
+    ctx.fill();
+}
+
+// 매시간 화면을 갱신한다.
+function animate() {
+    ctx.clearRect(0, 0, ctxW, ctxH);
+    ctx.drawImage(bgImage, 0, 0);
+    snow();
+}
+
+var animateInterval = setInterval(animate, 30);
+        </script>        
+    </body>
+</html>

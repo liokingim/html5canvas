@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>          
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var bgImage = new Image();
+bgImage.src = "images/space.png";
+var fighterImage = new Image();
+fighterImage.src = "images/fighter.png";
+var x = 0;
+var speed = 5;
+var keyCodeValue;
+
+function Background() {
+    this.x = 0, this.y = 0, this.w = bgImage.width, this.h = bgImage.height;
+    this.render = function() {
+        ctx.drawImage(bgImage, this.x--, 0);
+        if(this.x <= -600) {
+            this.x = 0;
+        }
+    };
+}
+
+function Player() {
+    this.x = 0, this.y = 0, this.w = fighterImage.width, this.h = fighterImage.height;
+    this.render = function() {
+        ctx.drawImage(fighterImage, this.x, this.y);         
+    };
+}
+
+var background = new Background();  
+var player = new Player(); 
+player.x = 30;
+player.y = 150;
+
+function animate() {
+    background.render();
+    player.render();
+    update();
+}
+
+var animateInterval = setInterval(animate, 30);
+
+// animate 함수에서 매 시간당 업데이트가 되는 것을 체크한다.
+function update () {
+    if (keyCodeValue === "W") {
+        player.y -= speed;
+    } else if (keyCodeValue === "S") {
+        player.y += speed;
+    } else if (keyCodeValue === "A") {
+        player.x -= speed;
+    } else if (keyCodeValue === "D") {
+        player.x += speed;
+    }
+}
+
+// 키보드를 클릭하였을 때에 반응한다.
+$(document).keydown(function(event) {
+    // 키보드의 키값을 가져온다.
+    keyCodeValue = String.fromCharCode(event.keyCode);
+//    console.log(event.keyCode+"|"+keyCodeValue);
+});  
+
+// 키보드를 해제하였을 때에 반응한다.
+$(document).keyup(function(event) {
+    keyCodeValue = "";
+});  
+
+        </script>        
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>jquery 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<style>
+    body { width: 400px;}
+    #click { border: 1px solid #000; display: block;}
+    .colorChange {background-color: gray;}
+</style>
+    </head>
+    <body>
+        <p id="click">클릭하세요. 리스트가 늘어납니다.</p>
+        <div class="colorChange">색이 변합니다.</div>        
+<script> 
+    // 객체를 생성
+    $("#click").click(function () {
+        $('body').append('<div class="colorChange">색이 변합니다.</div>');
+    });
+    
+    // 동적으로 이벤트를 생성
+    $("body").on("click", ".colorChange", function () {
+        $(".colorChange:last-child").css("background-color", "red");
+    });
+</script>
+    </body>
+</html>

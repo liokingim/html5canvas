@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 03</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+#audio_player {
+    width: 400px;
+    height: 100px;
+    background: #000;
+}            
+#audio_box > audio {
+    width: 400px;
+    background: #002d3c;
+    float: left;
+} 
+#myCanvas {
+    float: left;
+}
+        </style>
+    </head>
+    <body>
+        <div id="audio_player">
+            <canvas id="myCanvas" width="400" height="100">CANVAS를 지원하지 않습니다.</canvas>
+            <div id="audio_box"></div>  
+        </div>
+    <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+
+var audio = new Audio();
+audio.src = "sounds/nutcracker.mp3";
+audio.controls = true;
+audio.loop = false;
+audio.autoplay = false;
+$("#audio_box").append(audio);
+        </script>        
+    </body>
+</html>

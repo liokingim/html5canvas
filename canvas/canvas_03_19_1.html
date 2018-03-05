@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#ffffff; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+
+// 배경을 검게 만든다.
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// 하얀 원형을 하나 만든다.
+ctx.beginPath();
+ctx.fillStyle = "white";
+ctx.arc(200, 150, 5, 0, Math.PI*2); 
+ctx.fill();
+        </script>        
+    </body>
+</html>

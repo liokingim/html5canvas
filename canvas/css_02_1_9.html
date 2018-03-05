@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+        body { width: 400px;}
+        input {margin: 3px;}
+        input[type=text]:focus {color:red; border: 2px solid red; padding: 3px;}
+        input:enabled {color:green; font-weight: bold;}
+        input:disabled {color:blue;}
+        input[type=radio]:checked + label {color:magenta; font-weight: bold;}
+    </style>
+    </head>
+    <body> 
+        이름: <input type="text" name="uname" value="홍길동"/><br>
+        아이디: <input type="text" name="uid" value="id@id.com" disabled/><br>
+        성별: <input type="radio" id="man" name="sex" />
+        <label>남</label>
+        <input type="radio" id="woman" name="sex"/>
+        <label>여</label>
+    </body>
+</html>

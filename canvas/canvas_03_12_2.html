@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>          
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+$("#myCanvas").bind("click", function (event) {
+    var mouseX = event.clientX - ctx.canvas.offsetLeft;
+    var mouseY = event.clientY - ctx.canvas.offsetTop;
+    ctx.fillStyle = "red";
+    // 마우스 클릭한 곳에서 사각형의 중심이 되어서 생성이 된다. 
+    ctx.fillRect(mouseX - 10, mouseY - 10, 20, 20);
+});
+        </script>        
+    </body>
+</html>

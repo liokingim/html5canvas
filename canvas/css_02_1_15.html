@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+body { width: 400px;}
+.borderLine, .borderSolid, .borderDotted {
+    padding: 5px 10px 5px 10px; 
+    margin: 5px 10px 5px 10px;}
+.borderDashed, .borderDouble {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.borderLine {    border:2px gray solid;}
+.borderSolid {    border-width:2px; border-color:gray; border-style:solid;}
+.borderDotted {    border-width:2px; border-color:red; border-style:dotted;}
+.borderDashed {    border-width:2px; border-color:green; border-style:dashed;}
+.borderDouble {    border-width:2px; border-color:blue; border-style:double;}
+    </style>
+    </head>
+    <body> 
+        <p class="borderLine">border 속성은 경계선을 지정할 수 있습니다.</p>
+        <p class="borderSolid">solid 스타일의 경계선</p>
+        <p class="borderDotted">dotted 스타일의 경계선</p>
+        <p class="borderDashed">dashed 스타일의 경계선</p>
+        <p class="borderDouble">double 스타일의 경계선</p>
+    </body>
+</html>

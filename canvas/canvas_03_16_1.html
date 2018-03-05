@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>          
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+
+var buildings = [ 
+    {"id":"AirPort","x":50,"y":50,"w":64,"h":64,"sx":0,"sy":0},
+    {"id":"Bank","x":150,"y":50,"w":64,"h":64,"sx":100,"sy":0},
+    {"id":"CarRepair","x":250,"y":50,"w":64,"h":64,"sx":200,"sy":0},
+    {"id":"GasStation","x":50,"y":150,"w":64,"h":64,"sx":300,"sy":0},
+    {"id":"Hospital","x":150,"y":150,"w":64,"h":64,"sx":400,"sy":0},
+    {"id":"Temple","x":250,"y":150,"w":64,"h":64,"sx":500,"sy":0}];
+
+// 빌딩 이미지
+var buildingImage = new Image();
+buildingImage.src = "images/buildings.png";
+
+// 배경 이미지
+var bgImage = new Image();
+bgImage.src = "images/background.png";
+
+// 이미지를 캔버스에 그린다.
+buildingImage.onload = function () {
+    ctx.drawImage(bgImage, 0, 0);
+    for (var i = 0; i < buildings.length; i++) {
+        var sx = buildings[i]['sx'];
+        var sy = buildings[i]['sy'];
+        var sw = buildings[i]['w'];
+        var sh = buildings[i]['h'];
+        var dx = buildings[i]['x'];
+        var dy = buildings[i]['y'];      
+        var dw = buildings[i]['w'];
+        var dh = buildings[i]['h']; 
+        ctx.drawImage(buildingImage, sx, sy, sw, sh, dx, dy, dw, dh);
+    }    
+};
+
+// 마우스를 클릭할 때 처리
+$(document).mousedown(function(event) {
+    var mouseX = event.clientX - ctx.canvas.offsetLeft;
+    var mouseY = event.clientY - ctx.canvas.offsetTop;
+    
+    for (var i = 0; i < buildings.length; i++) {
+        var bData = buildings[i];
+        
+        // 마우스 좌표를 체크하여 빌딩의 이름을 가져온다.
+        if(mouseX >= bData.x && mouseX < bData.x + bData.w 
+                && mouseY >= bData.y && mouseY < bData.y + bData.h) {
+//            console.log(bData.id);
+            
+            // 캔버스에 선택한 건물명을 출력할 배경을 만든다.
+            ctx.clearRect(100,260,200,30);
+            ctx.fillStyle = "yellow";
+            ctx.fillRect(100,260,200,30);
+            
+            // 캔버스에 선택한 건물명을 출력한다.
+            ctx.fillStyle = "#6495ED";
+            ctx.textAlign = "center";
+            ctx.font = "bold 20px Arial, sans-serif";
+            ctx.fillText(bData.id, 200, 280);
+        }
+    }
+}); 
+        </script>        
+    </body>
+</html>

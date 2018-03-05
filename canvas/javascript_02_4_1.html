@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Javascript 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<style>
+#video_player { 
+    width:500px; 
+    background:#000000; 
+    margin:0px auto;
+}
+</style>
+    </head>
+    <body>
+    <div id="video_player">
+        <video id="myVideo" width="500" height="280">
+            <source src="videos/Fireplace.mp4">
+        </video>
+        <div id="video_controls_bar">
+            <button id="btnPlayPause" class="btnPlay"></button>
+            <input id="sliderSeek" type="range" min="0" max="100" value="0" step="1">
+            <span id="textCurrtime" class="textTime">00:00</span> 
+            <span class="textTime">/</span>
+            <span id="textDurtime" class="textTime">00:00</span>
+            <button id="btnUnMute" class="btnUnMute"></button>
+            <input id="sliderVolume" type="range" min="0" max="100" value="100" step="1">
+            <button id="btnFullscreen" class="btnFullscreen"></button>
+        </div>
+    </div>
+<script> 
+
+</script>        
+    </body>
+</html>

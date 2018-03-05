@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>          
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var canW = canvas.width;
+var canH = canvas.height;
+var speed = 5;
+var keysDown = {};
+
+// 비행기 이미지
+var fighterImage = new Image();
+fighterImage.src = "images/BlueFighter.png";
+
+function Player() {
+    this.y = 250, this.x = canW * 0.5 - 25, this.w = 50, this.h = 45;
+    this.missiles = [];
+    
+    this.render = function() {
+        ctx.strokeStyle = 'red'; // 삭제
+        ctx.strokeRect(this.x, this.y, this.w, this.h); // 삭제
+        ctx.drawImage(fighterImage, this.x, this.y);
+        
+        // 미사일을 이동한다.
+        for (var i = 0; i < this.missiles.length; i++) {
+            var m = this.missiles[i];
+            ctx.fillStyle = m.bg;
+            ctx.fillRect(m.x, m.y -= 5, m.w, m.h);
+            
+            // 화면밖에 미사일은 삭제
+            if (m.y <= 0) {
+                this.missiles.splice(i, 1);
+            }
+        }
+    };
+}
+
+// animate 함수에서 매 시간당 업데이트가 되는 것을 체크한다.
+function update () {
+    // 좌우로 움직인다.
+    if (65 in keysDown) {
+        player.x -= speed;
+    } else if (68 in keysDown) {
+        player.x += speed;
+    }
+
+    // limit boundry
+    if (player.x < 0) {
+        player.x = 0;
+    } else if (player.x > (canW - player.w)) {
+        player.x = canW - player.w;
+    }
+}
+
+// 키보드를 클릭하였을 때에 반응한다.
+$(document).keydown(function(event) {
+    keysDown[event.keyCode] = true;
+
+    // space bar
+    if (event.keyCode === 32) {
+        player.missiles.push({"x":player.x + player.w * 0.5, "y":player.y - 5,
+                                "w":3, "h":10, "bg":"red"});
+    }
+});  
+
+// 키보드를 해제하였을 때에 반응한다.
+$(document).keyup(function(event) {
+    delete keysDown[event.keyCode];
+}); 
+
+var player = new Player();
+
+function animate() {
+    ctx.clearRect(0, 0, canW, canH);
+    update();
+    player.render();
+}
+
+setInterval(animate, 30);
+        </script>        
+    </body>
+</html>

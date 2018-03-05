@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+body { width: 500px; height: 600px;}
+div {width:450px; height:100px; 
+        margin: 5px 0px 5px 0px;
+        display: block;}
+.box{width:100px; height:100px; 
+    margin-left:5px; 
+    border:1px solid #AAA;
+    display: block;
+    border: 1px solid gray;
+    float: left;}
+.images {background-image:url('images/flower.png');}
+#box1{ background-repeat: no-repeat; 
+       border-top-left-radius: 10px;}
+#box2{ background-repeat: repeat; 
+       border-top-right-radius: 10px; }
+#box3{ background-repeat: repeat-x; }
+#box4{ background-repeat: repeat-y; }
+#box5{ background-position:50px 50px; background-repeat: no-repeat; 
+        border-bottom-left-radius: 10px;}
+#box6{ background-position:center center; background-repeat: no-repeat;
+        border-bottom-right-radius: 10px;}
+#box7{ background-color:green; }
+#box8{width:84px; height:84px; cursor: pointer; border-radius: 7px;
+      background: url(images/start.png) 0px 0px no-repeat;}
+#box8:hover{ background: url(images/start.png) 0px -84px no-repeat; }
+    </style>
+    </head>
+    <body> 
+        <div>
+            <span id="box1" class="box images"></span>
+            <span id="box2" class="box images"></span>
+            <span id="box3" class="box images"></span>
+            <span id="box4" class="box images"></span>            
+        </div>
+        <div>
+            <span id="box5" class="box images"></span>
+            <span id="box6" class="box images"></span>
+            <span id="box7" class="box"></span>
+            <span id="box8" class="box"></span>            
+        </div>
+    </body>
+</html>

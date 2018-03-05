@@ -1,0 +1,184 @@
+@charset "utf-8";
+
+body {
+    color:#FFFFFF;
+    padding: 10px;
+    text-align: center;
+    background-color: #E8D48D;
+}
+.maintitle {
+    color: purple;   
+    font-size: 34px;    
+    font-weight: 600;    
+}
+.title {
+    color: #226622;
+    font-size: 28px;
+    padding: 0px;
+    margin-top: -10px;
+    display: none;
+}
+.gameboard{
+    border: 1px solid #E9DEB8;
+    padding: 20px;
+    width: 600px;
+    height: 400px;
+    margin: auto;
+    background-color:white;
+    -webkit-box-shadow: 0px 0px 36px #F9F0CF;
+    box-shadow: 0px 0px 36px #F9F0CF;
+    border-radius: 8px;
+    position: relative;
+}
+.gameScene {
+    position: relative;
+    background-color: #FDF6DB;
+    margin-left: 6px;
+    margin-top: 4px;
+    width: 590px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.dialogbox {
+    position: absolute;
+    top: 20px;
+    left: 22px;
+    width: 600px;
+    height: 380px;
+    padding-top: 20px;
+    background-color: white;
+    color:White;
+    display: none;
+    border-radius: 5px;
+    overflow: hidden;
+    background-image: url(../images/grape.png), url(../images/bg.png);
+    background-position: 100% -10%, 0% 0%;
+    background-repeat: no-repeat, no-repeat;
+}
+.btn {
+    display: block;
+    margin: 10px 20px 10px 0;
+    font-weight: 600;
+    text-align: center;
+    color: #FFF;
+    border-radius: 5px;
+    transition: all 0.2s ;
+}
+.btnPurple {
+    background: #A74982;
+}
+.btnFloat {
+    background: #8D336A;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+.btnFloat:hover {
+    transform: scale(1.1,1.1);
+    -ms-transform: scale(1.1,1.1);
+    -webkit-transform: scale(1.1,1.1);
+    box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+.clear {
+    clear: both;
+}
+#fox {
+    position: absolute;
+    top: 190px;
+    left: 10px;    
+}
+#btnStart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 5px 10px 5px 10px;
+    line-height: 30px;    
+}
+.hiddenData {
+    position: absolute;
+    display: none;
+}
+.text {
+    text-align: left;
+    padding: 10px;
+    display: none;
+    font-size: 20px;
+    color: white;
+    width: 450px;  
+    font-weight: 600;
+}
+.nextScene2, .nextScene3 {
+    cursor: pointer;
+}
+.anim_swing {
+    animation: swing 3s linear infinite;
+    transform-origin:50% 100%; 
+}
+@keyframes swing {
+    0% { transform:rotate(0deg);}
+    25% { transform:rotate(-1deg);}
+    75% { transform:rotate(1deg);}
+    100% { transform:rotate(0deg);}
+}
+.anim_slidein {
+    animation: slidein 1.5s linear 1;
+}
+@keyframes slidein{
+    0% {transform:translate(600px, 0px);}
+    66% {transform:translate(600px, 0px);}
+    100% {transform:translate(0px, 0px);}
+}
+.anim_slideout {
+    animation: slideout 0.5s linear 1;
+}
+@keyframes slideout{
+    0% { transform:translate(0px, 0px);}
+    100% { transform:translate(-600px, 0px);}
+}
+.anim_stretch {
+    animation: stretch 0.5s linear 1;
+    transform-origin:100% 100%; 
+}
+@keyframes stretch {
+    0% { transform:scale(0.3, 0.3);}
+    100% { transform:scale(1.0, 1.0);}
+}
+.fox_walk {
+    width: 200px;
+    height: 70px;
+    background-image: url("../images/fox_walk_sprites.png") ;
+    animation: fox_anim_walk 3.0s steps(9) infinite;
+}
+@keyframes fox_anim_walk {
+    from { background-position: 0px; }
+    to { background-position: -1800px; }
+}
+.fox_jump {
+    width: 200px;
+    height: 200px;
+    background-image: url("../images/fox_jump_sprites.png") ;
+    animation: fox_anim_jump 1.6s steps(11) infinite;
+}
+@keyframes fox_anim_jump {
+    from { background-position: 0px; }
+    to { background-position: -2200px; }
+}
+.myAudio {
+    display: none;
+}
+.sound {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 10;
+}
+.sound-on {
+    background-image: url('../images/soundOn.png');
+    background-repeat: no-repeat;
+}
+.sound-off {
+    background-image: url('../images/soundOff.png');
+    background-repeat: no-repeat;
+}

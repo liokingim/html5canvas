@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>jquery 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<style>
+    body { width: 400px;}
+</style>
+    </head>
+    <body>
+        아이디: <input type="text" id="uid" name="uid" value="hong"><br>
+        이름: <input type="text" id="uname" name="uname"> 
+<script> 
+    // uid의 값을 가져온다.
+    var uid = $("#uid").val();
+    console.log("uid: " + uid);
+    // uname에 값을 넣는다.
+    $("#uname").val("홍길동");
+</script>
+    </body>
+</html>

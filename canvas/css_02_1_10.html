@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+        body { width: 400px;}
+        ul li {
+            list-style:none;
+            border:1px solid #cccccc;
+            padding:5px;
+            background-color:#efefef;
+        }
+        li:first-child {border-radius:10px 10px 0 0;}
+        li:nth-child(2n+1) {background-color:#de9393;}
+        li:nth-child(2n) { background-color: #FF0003; }
+        li:first-child, li:last-child {background-color:yellow;}
+        li:last-child {border-radius:0 0 10px 10px;}
+    </style>
+    </head>
+    <body> 
+        <ul>
+            <li>First menu</li>
+            <li>Second menu</li>
+            <li>Third menu</li>
+            <li>Fourth menu</li>
+            <li>Fifth menu</li>
+        </ul>
+    </body>
+</html>

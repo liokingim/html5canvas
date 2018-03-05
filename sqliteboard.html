@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sqlite Board</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-1.12.0.min.js"></script>
+<style>
+body { 
+    margin:10px; 
+    background:#666; 
+}
+#list {
+    list-style: none;
+}
+.btn_set {
+    margin: 0;
+    margin-left: 25%;
+    display: inline-block;
+    padding: 5px;
+}
+.btn, .btn_edit, .btn_delete {
+    width: 50px;
+    cursor: pointer;
+    display: inline-block;
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    text-align: center;
+    color: #ffffff;
+    padding: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.btn:hover, .btn_edit:hover, .btn_delete:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+}
+#form {
+    background:#FFF;  
+    width: 500px;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 12px;
+}
+.boardlist {
+    background:#FFF; 
+    border-radius: 3px; 
+    width: 505px;
+    font-size: 12px;
+    padding: 1px;
+}
+.boardlist ol li {
+    margin-top: 3px;
+}
+</style> 
+    </head>
+    <body>
+        <div id="form">
+            <h1>Sqlite Board</h1> 
+            <form id="mycontact">
+                <input id="id" type="hidden" value=""/>
+                <fieldset> 
+                    <legend>게시판</legend> 
+                    <ol id="list"> 
+                      <li> 
+                         <label for="username">이름: </label> 
+                         <input id="username" type="text" placeholder="name..." required autofocus>
+                      </li> 
+                      <li> 
+                          <label for="content">내용: </label> 
+                          <input id="content" type="text" placeholder="write..." required>
+                       </li> 
+                    </ol> 
+                </fieldset> 
+
+                <div class="btn_set">
+                    <span id="btn_reset" class="btn">글지우기</span>
+                    <span id="btn_insert" class="btn">글쓰기</span> 
+                    <span id="btn_update" class="btn">글수정</span> 
+                    <span id="btn_drop" class="btn">DB삭제</span>  
+                </div>            
+            </form>
+        </div> 
+        <br />     
+        <div id="boardlist" class="boardlist">list</div>
+<script>
+var systemDB;
+var dataset;
+
+$(document).ready(function () {
+    initDatabase(); 
+    
+    // 입력
+    $("#btn_insert").click(function() {
+        insertDB(systemDB);
+    });
+    
+    // 리스트 수정버튼
+    $("body").on("click", ".btn_edit", function() {
+        var no = $(this).data("no");
+        var idx = $(this).data("idx");
+        $("#id").val(idx);
+        loadRecord(no);
+    });
+    
+    // 업데이트
+    $("#btn_update").click(function() {
+        updateDB(systemDB);
+    });
+    
+    // 삭제
+    $("body").on("click", ".btn_delete", function() {
+        var idx = $(this).data("idx");
+        deleteDB(systemDB, idx);
+        selectAllList(systemDB, idx);
+    });
+    
+    // 테이블 삭제
+    $("#btn_drop").click(function() {
+        dropTable(systemDB);
+    });
+    
+    // 글 지우기
+    $("#btn_reset").click(resetForm); 
+});
+
+// 테이블 삭제
+function dropTable(db) { 
+    if (!confirm("테이블을 삭제를 하겠습니까?")) {
+        return;    
+    }
+    
+    var strSql = "DROP TABLE tbl_board"; 
+    db.transaction(function (tx) { 
+        tx.executeSql(strSql, [], loadAndReset, errorHandler); 
+    }); 
+    resetForm(); 
+    initDatabase(); 
+}
+
+// 삭제
+function deleteDB(db, idx) { 
+    if (Number(idx) <= 0) {
+        alert("삭제할 글을 선택해주세요.");
+        return;
+    }    
+    
+    if (!confirm("삭제를 하겠습니까?")) {
+        return;    
+    }
+    
+    var strSql = "DELETE FROM tbl_board WHERE idx=?";        
+    db.transaction(function (tx) { 
+        tx.executeSql(strSql, [Number(idx)], loadAndReset, errorHandler); 
+    });
+}
+
+function updateDB(db) { 
+    var strSql = "UPDATE tbl_board SET username = ?, content = ? WHERE idx = ?";
+    var username = $('#username').val().trim(); 
+    var content = $('#content').val().trim();
+    var idx = $("#id").val(); 
+    
+    if (username === "" || content === "" || Number(idx) <= 0) {
+        alert("글을 적어주세요.");
+        $('#username').focus();
+        return;
+    }
+    
+    db.transaction(function (tx) { 
+        tx.executeSql(strSql, [username, content, Number(idx)], loadAndReset, errorHandler); 
+    });
+}
+
+function loadRecord(no) { 
+    var item = dataset.item(no);       
+    $("#username").val((item['username']).toString()); 
+    $("#content").val((item['content']).toString());
+}
+
+function initDatabase() {
+    if (!window.openDatabase) { 
+        alert("현재 브라우저는 Web SQL Database를 지원하지 않습니다");
+    } else {
+        var shortName = 'Board1';
+        var version = '1.0';
+        var displayName = 'Board DB';
+        var maxSize = 1024 * 64; // in bytes
+        var db = openDatabase(shortName, version, displayName, maxSize);
+    }  
+    
+    createTable(db);
+    selectAllList(db);
+    systemDB = db; 
+}
+
+function insertDB(db) {
+    var strSql = "INSERT INTO tbl_board (username, content) VALUES (?, ?)"; 
+    var username = $('#username').val().trim(); 
+    var content = $('#content').val().trim();
+    
+    if (username === "" || content === "") {
+        alert("글을 적어주세요.");
+        $('#username').focus();
+        return;
+    }
+    
+    db.transaction(function (tx) { 
+        tx.executeSql(strSql, [username, content], loadAndReset, errorHandler); 
+    });
+}
+
+function loadAndReset() { 
+    resetForm();
+    selectAllList(systemDB);
+} 
+
+function resetForm() {
+    $("#username").val(""); 
+    $("#content").val(""); 
+}
+
+function errorHandler(error) { 
+    alert('Error: '+error.message+' (Code '+error.code+')');
+}
+
+function selectAllList(db) { 
+    var strSql = "SELECT * FROM tbl_board order by idx desc"; 
+    $("#boardlist").html('');
+    db.transaction(function (tx) { 
+        tx.executeSql(strSql, [], function (tx, result) { 
+            dataset = result.rows; 
+            var str = "<ol>";
+            if (dataset.length > 0) {
+                for (var i = 0, item = null; i < dataset.length; i++) { 
+                    item = dataset.item(i); 
+                    str += "<li>"+item['username']+" : "+item['content']+" : "+item['regdate']
+                        + " <span class='btn_edit' data-no='"+i+"' data-idx='"+item['idx']+"'>edit</span>"
+                        + " <span class='btn_delete' data-no='"+i+"' data-idx='"+item['idx']+"'>delete</span>"
+                        + "</li>";                 
+                }
+            } else {
+                str += "리스트가 없습니다.";
+            }
+            str += "</ol>";  
+            $("#boardlist").html(str);
+        }); 
+    }); 
+}
+
+function createTable(db) {
+    var strCreate = "CREATE TABLE IF NOT EXISTS tbl_board"
+                  + " (idx INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                  + " username TEXT NOT NULL,"
+                  + " content TEXT NOT NULL,"
+                  + " regdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
+    db.transaction(function (tx) { 
+        tx.executeSql(strCreate);    
+    });
+}
+
+
+function insertTestDB(db) {
+    db.transaction(function (tx) { 
+        tx.executeSql("INSERT INTO tbl_board(username, content) values('test', '1번째 글입니다.')");    
+        tx.executeSql("INSERT INTO tbl_board(username, content) values('test', '2번째 글입니다.')");  
+        tx.executeSql("INSERT INTO tbl_board(username, content) values('test', '3번째 글입니다.')");  
+    });
+}
+</script> 
+    </body>
+</html>

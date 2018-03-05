@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var flower = new Image();
+flower.src = "images/flower.png";
+flower.onload = function() {
+  var pattern = ctx.createPattern(flower, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+};
+        </script>        
+    </body>
+</html>

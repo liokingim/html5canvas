@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var grad = ctx.createLinearGradient(50, 50, 250, 50);
+grad.addColorStop(0, 'red');
+grad.addColorStop(1 / 6, 'orange');
+grad.addColorStop(2 / 6, 'yellow');
+grad.addColorStop(3 / 6, 'green');
+grad.addColorStop(4 / 6, 'aqua');
+grad.addColorStop(5 / 6, 'blue');
+grad.addColorStop(1, 'purple');
+ctx.lineWidth = 5;
+ctx.fillStyle = grad;
+ctx.fillRect(50,50,200,200);
+ctx.strokeRect(50,50,200,200);
+        </script>        
+    </body>
+</html>

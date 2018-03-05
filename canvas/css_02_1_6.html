@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+        body { width: 400px;}
+        #header > h1 { color: red; }
+        #header > #nav {margin-left: 15px;}
+        #header > #nav > h3 {background: yellow; margin: 5px; padding: 3px;}
+        #header > #nav > h4 {background: grey; margin: 5px; padding: 3px;}
+        #section > h1 { color: blue; }    
+        .title{ background: greenyellow; text-align: center; padding: 5px;}
+    </style>
+    </head>
+    <body>  
+        <div id="header">
+            <h1 class="title">타이틀</h1>
+            <div id="nav">
+                <h3>짜장면</h3>
+                <h3>탕수육</h3>
+                <h4>우동</h4>
+            </div>
+        </div>
+
+        <div id="section">
+            <h1 class="title">섹션 타이틀</h1>
+        </div>
+    </body>
+</html>

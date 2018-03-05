@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 01</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#ffffff; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+var ctxW = canvas.width; 
+var ctxH = canvas.height;
+
+// 파티클
+var particles = [];
+var totalCount = 30;
+
+// 중력
+var gravity = 1;
+
+// 파티클을 추가
+function addParticle () {  
+    // 배열의 개수를 제한한다.
+    if (particles.length >= totalCount) {
+        return;
+    }
+    
+    var x = ctxW / 2;
+    var y = ctxH / 4;
+    var size = 3;
+    // 초속도
+    var vx = Math.random() * 20 - 10;
+    var vy = Math.random() * 20 - 15;
+    
+    // 파티클을 생성해서 배열에 넣는다.
+    particles.push({"x":x, "y":y, "size":size, "vx":vx, "vy":vy});
+}
+
+function particle() {
+    addParticle();
+    
+    for (var i in particles) {  
+        // 하얀 원형을 하나 만든다.
+        ctx.beginPath();
+        var grad = ctx.createLinearGradient(100, 0, 300, 0);
+        grad.addColorStop(0,"white");
+        grad.addColorStop(0.25,"yellow");
+        grad.addColorStop(0.5,"red");
+        grad.addColorStop(0.75,"yellow");
+        grad.addColorStop(1,"white");
+        ctx.fillStyle = grad;
+        var x = particles[i].x += particles[i].vx;
+        var y = particles[i].y += particles[i].vy;
+        particles[i].vy += gravity;
+        ctx.arc(x, y, particles[i].size, 0, Math.PI*2);
+        ctx.fill();
+
+        // 화면을 넘어가면 삭제한다.
+        if (particles[i].y > ctxH) {
+            particles.splice(i, 1);
+        }
+    }
+}
+
+function animate () {    
+    // 배경을 검게 만든다.
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, ctxW, ctxH);
+    particle();
+}
+
+setInterval(animate, 30);
+        </script>        
+    </body>
+</html>

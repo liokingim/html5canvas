@@ -1,0 +1,30 @@
+<div id="gameScenePage" class="anim_slidein">
+    <img class="hiddenData backimage" src="images/bg.png"/>
+    <img class="hiddenData grapeimage" src="images/grape.png"/>
+    <img class="hiddenData balloonimage" src="images/dialogballoon.png"/>
+    <img class="hiddenData foximage" />    
+    <div class="hiddenData text text1">여우<br>그래, 저거라면 내가 따먹을 수 있겠다.</div>
+    <div class="hiddenData text text2">여우<br>아니, 이 포도는 왜 이렇게 높이 달려있는<br> 거야?</div>
+    <button class="hiddenData waitbutton btn btnFloat btnPurple" data-href="scene_03.html">▷</button>
+</div>
+<div id="jsonData" class="hiddenData">
+[{"id":"display", "class1":"backimage", "top": 0, "left":0, "margintop": -50},
+{"id":"display", "class1":"grapeimage", "top":-20, "left":150},
+{"id":"addClass", "class1":"grapeimage", "class2":"anim_swing"},
+{"id":"display", "class1":"foximage", "top":250, "left":0},
+{"id":"addClass", "class1":"foximage", "class2":"fox_walk"},
+{"id":"wait", "time":2000},
+{"id":"display", "class1":"balloonimage", "top":245, "left":185},
+{"id":"addClass", "class1":"balloonimage", "class2":"anim_stretch"},
+{"id":"wait", "time":1000},
+{"id":"removeClass", "class1":"balloonimage", "class2":"anim_stretch"},
+{"id":"display", "class1":"text1", "top": 240, "left": 190},
+{"id":"wait", "time":3000},
+{"id":"display", "class1":"foximage", "top":135, "left":110},
+{"id":"addClass", "class1":"foximage", "class2":"fox_jump"},
+{"id":"wait", "time":2000},
+{"id":"hidden", "class1":"text1"},
+{"id":"display", "class1":"text2", "top": 240, "left": 190},
+{"id":"wait", "time":800},
+{"id":"nextScene", "class1":"waitbutton", "top": 300, "left": 550}]
+</div>  

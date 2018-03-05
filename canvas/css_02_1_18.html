@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>css 요소</title>
+    <style>
+body { width: 500px; height: 600px;}
+p { width: 200px;
+    height: 20px;
+    display: block;
+    padding: 5px;
+    background-color: yellow;
+    border: 1px solid black;
+    animation-duration: 3s; 
+    animation-name: slidein;
+    animation-iteration-count: 3;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+@keyframes slidein {
+  from { margin-left: 100%; width: 400px; background-color: red; }
+  to {  margin-left: 0%; width: 200px; background-color: yellow; }
+}
+    </style>
+    </head>
+    <body> 
+        <p>글씨가 옆으로 이동합니다.</p>
+    </body>
+</html>

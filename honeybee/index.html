@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>HoneyBee Game</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+            body{ 
+                margin:10px; 
+                background:#D0D0D0; 
+            }
+            #myCanvas{ 
+                background:#FFFFFF; 
+                border:#909090 1px solid; 
+            }
+            .myAudio {
+                display: none;
+            }
+            .sound {
+                position: absolute;
+                top: 20px;
+                left: 30px;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 10;
+              }
+              .sound-on {
+                background-image: url('images/soundOn.png');
+                background-repeat: no-repeat;
+              }
+              .sound-off {
+                background-image: url('images/soundOff.png');
+                background-repeat: no-repeat;
+              }
+        </style>
+    </head>
+    <body>
+        <div class="sound sound-on"></div>
+        <audio class="myAudio" autoplay loop>
+            <source src="sounds/bg.mp3" type="audio/mpeg">
+        </audio>
+        <canvas id="myCanvas" width="500" height="400"></canvas>
+        <script src="js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>Canvas 02</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <style>
+body{ margin:10px; background:#D0D0D0; }
+#myCanvas{ background:#FFF; border:#909090 1px solid; }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="300">CANVAS를 지원하지 않습니다.</canvas>  
+        <script>            
+var canvas = $("#myCanvas").get(0);
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "#6495ED";
+ctx.font = "bold 20px Arial, sans-serif";
+ctx.textBaseline = "top"; //textAlign="alphabetic|top|hanging|middle|ideographic|bottom";
+ctx.fillText("top!", 10, 150);
+ctx.textBaseline = "bottom";
+ctx.fillText("bottom!", 50, 150);
+ctx.textBaseline = "middle";
+ctx.fillText("middle!", 130, 150);
+ctx.textBaseline = "alphabetic";
+ctx.fillText("alphabetic!", 210, 150);
+ ctx.textBaseline = "hanging";
+ctx.fillText("hanging!", 310, 150);
+ctx.strokeStyle="red";
+ctx.moveTo(10,150);
+ctx.lineTo(390,150);
+ctx.stroke();
+        </script>        
+    </body>
+</html>
